@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <random>
+#include <string>
 #include "SDL.h"
 #include "controller.h"
 #include "renderer.h"
@@ -16,12 +16,6 @@ class Game {
 
  private:
   LightCycle cycle1, cycle2;
-  SDL_Point food;
-
-  std::random_device dev;
-  std::mt19937 engine;
-  std::uniform_int_distribution<int> random_w;
-  std::uniform_int_distribution<int> random_h;
 
   void Update();
 };
