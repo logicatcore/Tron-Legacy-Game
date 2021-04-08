@@ -1,39 +1,55 @@
 #include "controller.h"
 #include <iostream>
 #include "SDL.h"
-#include "snake.h"
+#include "light_cycle.h"
 
-void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
-                                 Snake::Direction opposite) const {
-  if (snake.direction != opposite || snake.size == 1) snake.direction = input;
+void Controller::ChangeDirection(LightCycle &lightCycle, LightCycle::Direction input,
+                                 LightCycle::Direction opposite) const {
+  if (lightCycle.direction != opposite) lightCycle.direction = input;
   return;
 }
 
-void Controller::HandleInput(bool &running, Snake &snake) const {
+void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle &lightCycle2) const {
   SDL_Event e;
   while (SDL_PollEvent(&e)) {
     if (e.type == SDL_QUIT) {
       running = false;
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
+        case SDLK_w:
+          ChangeDirection(lightCycle2, LightCycle::Direction::kUp,
+                          LightCycle::Direction::kDown);
+          break;
         case SDLK_UP:
-          ChangeDirection(snake, Snake::Direction::kUp,
-                          Snake::Direction::kDown);
+          ChangeDirection(lightCycle1, LightCycle::Direction::kUp,
+                          LightCycle::Direction::kDown);
           break;
-
+        
+        case SDLK_s:
+          ChangeDirection(lightCycle2, LightCycle::Direction::kDown,
+                          LightCycle::Direction::kUp);
+          break;
         case SDLK_DOWN:
-          ChangeDirection(snake, Snake::Direction::kDown,
-                          Snake::Direction::kUp);
+          ChangeDirection(lightCycle1, LightCycle::Direction::kDown,
+                          LightCycle::Direction::kUp);
           break;
-
+        
+        case SDLK_a:
+          ChangeDirection(lightCycle2, LightCycle::Direction::kLeft,
+                          LightCycle::Direction::kRight);
+          break;
         case SDLK_LEFT:
-          ChangeDirection(snake, Snake::Direction::kLeft,
-                          Snake::Direction::kRight);
+          ChangeDirection(lightCycle1, LightCycle::Direction::kLeft,
+                          LightCycle::Direction::kRight);
           break;
 
+        case SDLK_d:
+          ChangeDirection(lightCycle2, LightCycle::Direction::kRight,
+                          LightCycle::Direction::kLeft);
+          break;
         case SDLK_RIGHT:
-          ChangeDirection(snake, Snake::Direction::kRight,
-                          Snake::Direction::kLeft);
+          ChangeDirection(lightCycle1, LightCycle::Direction::kRight,
+                          LightCycle::Direction::kLeft);
           break;
       }
     }

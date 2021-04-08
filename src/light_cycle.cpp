@@ -1,8 +1,8 @@
-#include "snake.h"
+#include "light_cycle.h"
 #include <cmath>
 #include <iostream>
 
-void Snake::Update() {
+void LightCycle::Update() {
   SDL_Point prev_cell{
       static_cast<int>(head_x),
       static_cast<int>(
@@ -19,7 +19,7 @@ void Snake::Update() {
   }
 }
 
-void Snake::UpdateHead() {
+void LightCycle::UpdateHead() {
   switch (direction) {
     case Direction::kUp:
       head_y -= speed;
@@ -43,37 +43,30 @@ void Snake::UpdateHead() {
   head_y = fmod(head_y + grid_height, grid_height);
 }
 
-void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {
+void LightCycle::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {
   // Add previous head location to vector
-  body.push_back(prev_head_cell);
+  trail.push_back(prev_head_cell);
 
   if (!growing) {
     // Remove the tail from the vector.
-    body.erase(body.begin());
+    trail.erase(trail.begin());
   } else {
     growing = false;
-    size++;
+    score++;
   }
 
   // Check if the snake has died.
-  for (auto const &item : body) {
+  for (auto const &item : trail) {
+    if (current_head_cell.x == item.x && current_head_cell.y == item.y) {
+      alive = false;
+    }
+  }
+  // check if collided with apponent
+  for (auto const &item : apponent.trail) {
     if (current_head_cell.x == item.x && current_head_cell.y == item.y) {
       alive = false;
     }
   }
 }
 
-void Snake::GrowBody() { growing = true; }
-
-// Inefficient method to check if cell is occupied by snake.
-bool Snake::SnakeCell(int x, int y) {
-  if (x == static_cast<int>(head_x) && y == static_cast<int>(head_y)) {
-    return true;
-  }
-  for (auto const &item : body) {
-    if (x == item.x && y == item.y) {
-      return true;
-    }
-  }
-  return false;
-}
+void LightCycle::GrowBody() { growing = true; }
