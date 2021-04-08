@@ -16,6 +16,8 @@ void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle 
       running = false;
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
+        // direction controls for player 1 and 2
+        // upwards turns
         case SDLK_w:
           ChangeDirection(lightCycle2, LightCycle::Direction::kUp,
                           LightCycle::Direction::kDown);
@@ -24,7 +26,7 @@ void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle 
           ChangeDirection(lightCycle1, LightCycle::Direction::kUp,
                           LightCycle::Direction::kDown);
           break;
-        
+        // downwards turns
         case SDLK_s:
           ChangeDirection(lightCycle2, LightCycle::Direction::kDown,
                           LightCycle::Direction::kUp);
@@ -33,7 +35,7 @@ void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle 
           ChangeDirection(lightCycle1, LightCycle::Direction::kDown,
                           LightCycle::Direction::kUp);
           break;
-        
+        // lefttwards turns
         case SDLK_a:
           ChangeDirection(lightCycle2, LightCycle::Direction::kLeft,
                           LightCycle::Direction::kRight);
@@ -42,7 +44,7 @@ void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle 
           ChangeDirection(lightCycle1, LightCycle::Direction::kLeft,
                           LightCycle::Direction::kRight);
           break;
-
+        // rightwards turns
         case SDLK_d:
           ChangeDirection(lightCycle2, LightCycle::Direction::kRight,
                           LightCycle::Direction::kLeft);
@@ -50,6 +52,15 @@ void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle 
         case SDLK_RIGHT:
           ChangeDirection(lightCycle1, LightCycle::Direction::kRight,
                           LightCycle::Direction::kLeft);
+          break;
+        // speed controls for player 1 and 2
+        // q -> quicker
+        case SDLK_q:
+          lightCycle2.speed += 0.05;
+          break;
+        // '/' (forward slash) because nearest key to arrows
+        case SDLK_SLASH:
+          lightCycle1.speed += 0.05;
           break;
       }
     }
