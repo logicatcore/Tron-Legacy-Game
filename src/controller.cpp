@@ -58,9 +58,19 @@ void Controller::HandleInput(bool &running, LightCycle &lightCycle1, LightCycle 
         case SDLK_q:
           lightCycle2.speed += 0.05;
           break;
-        // '/' (forward slash) because nearest key to arrows
-        case SDLK_SLASH:
+        // z -> snooze
+        case SDLK_z:
+          if (lightCycle2.speed >= 0.05) 
+            lightCycle2.speed -= 0.05;
+          break;
+        // '>' as in to go fast forwards
+        case SDLK_PERIOD:
           lightCycle1.speed += 0.05;
+          break;
+        // '<' as in to go move backwards
+        case SDLK_COMMA:
+          if (lightCycle1.speed >= 0.05) 
+            lightCycle1.speed -= 0.05;
           break;
       }
     }
