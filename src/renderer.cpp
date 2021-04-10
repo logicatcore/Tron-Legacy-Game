@@ -43,9 +43,7 @@ void Renderer::Render(LightCycle const &lightCycle1, LightCycle const &lightCycl
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
 
-  // Clear screen
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
-  SDL_RenderClear(sdl_renderer);
 
   // tron blue trail
   SDL_SetRenderDrawColor(sdl_renderer, 0x66, 0xFB, 0xFB, 0xFF);
