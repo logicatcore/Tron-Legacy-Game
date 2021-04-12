@@ -28,7 +28,7 @@ This is a Tron movie based game in which the apponents use their vehicles called
 
 ## Game preview
 
-![](./animatedGIF.gif)
+![](./tron.gif)
 
 ## Basic Build Instructions
 
